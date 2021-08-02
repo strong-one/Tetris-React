@@ -27,7 +27,7 @@ export const Tetrominos = {
     ],
     color: "223, 173, 36",
   },
-  0: {
+  O: {
     shape: [
       ["O", "O"],
       ["O", "O"],
@@ -58,4 +58,15 @@ export const Tetrominos = {
     ],
     color: "227, 78, 78",
   },
+};
+
+// function that generates random tetris piece
+
+export const randomTetromino = () => {
+  // string with all tetris pieces created
+  const tetrominos = "IJLOSTZ";
+  // generate random number of the length of string - string length grabing random number will return one of the letters
+  const randTetromino =
+    tetrominos[Math.floor(Math.random() * tetrominos.length)];
+  return TETROMNINOS[randTetromino];
 };
