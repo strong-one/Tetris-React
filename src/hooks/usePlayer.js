@@ -5,7 +5,7 @@ export const usePlayer = () => {
   // create state, with useState hook imported, will return an array with 2 items
 
   // destructured
-  cosnt[(player, setPlayer)] = useState({
+  const [player, setPlayer] = useState({
     // property - position for player
     pos: { x: 0, y: 0 },
     // one shape i createed to always keep in state
