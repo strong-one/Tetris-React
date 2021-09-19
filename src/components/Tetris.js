@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 // will need so there is a clean stage on new game
-import { createStage } from "../gameHelpers"; //prop
+import { createStage, checkCollision } from "../gameHelpers"; //prop
 
 // components
 import Stage from "./Stage"; // stage with cells where blocks fall
@@ -29,8 +29,10 @@ const Tetris = () => {
   console.log("re-render");
 
   const movePlayer = (dir) => {
-    // left and right movements
-    updatePlayerPos({ x: dir, y: 0 });
+    if (!checkCollision(player, stage, { x: dir, y: 0 })) {
+      // left and right movements
+      updatePlayerPos({ x: dir, y: 0 });
+    }
   };
 
   const startGame = () => {
