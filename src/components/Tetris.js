@@ -17,13 +17,9 @@ import { StyledTetrisWrapper, StyledTetris } from "./styles/StyledTetris";
 import { usePlayer } from "../hooks/usePlayer";
 import { useStage } from "../hooks/useStage";
 
-// custom hooks via deconstruction
-// const [player] = usePlayer();
-// const [stage, setStage] = useStage(player);
-
 const Tetris = () => {
   // custom hooks via deconstruction
-  const [player] = usePlayer();
+  const [player, updatePlayerPos, resetPlayer] = usePlayer();
   const [stage, setStage] = useStage(player);
 
   // droptime - speed based on level speed
@@ -33,15 +29,42 @@ const Tetris = () => {
 
   console.log("re-render");
 
-  const movePlayer = (dir) => {};
+  const movePlayer = (dir) => {
+    // left and right movements
+    updatePlayerPos({ x: dir, y: 0 });
+  };
 
-  const startGame = () => {};
+  const startGame = () => {
+    // reset everyting
+    setStage(createStage());
+    resetPlayer();
+  };
 
-  const drop = () => {};
+  const drop = () => {
+    // as dropping y value increase by 1 and y tetromino go down
+    updatePlayerPos({ x: 0, y: 1, collided: false });
+  };
 
-  const dropPlayer = () => {};
+  const dropPlayer = () => {
+    drop();
+  };
 
-  const move = ({ keyCode }) => {};
+  const move = ({ keyCode }) => {
+    if (!gameOver) {
+      // 37 is code for left arrow on keyboard
+      if (keyCode === 37) {
+        // -1 moving to the left on x axis
+        movePlayer(-1);
+        // 39 is right arrow on keyboard
+      } else if (keyCode === 39) {
+        // 1 moving to the right on x axis
+        movePlayer(1);
+        // 40 is down arrow
+      } else if (keyCode === 40) {
+        dropPlayer();
+      }
+    }
+  };
 
   return (
     <StyledTetrisWrapper
@@ -62,7 +85,8 @@ const Tetris = () => {
               <Display text="Level" />
             </div>
           )}
-          <StartButton />
+
+          <StartButton onClick={startGame} />
         </aside>
       </StyledTetris>
     </StyledTetrisWrapper>
