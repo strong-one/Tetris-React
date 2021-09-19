@@ -13,7 +13,7 @@ export const useStage = (player, resetPlayer) => {
         row.map((cell) => (cell[1] === "clear" ? [0, "clear"] : cell))
       );
 
-      // draw shape and stage
+      // draw shape
       // looping through shapes to see what cell the shape is occupying and know what shape it is
 
       player.tetromino.forEach((row, y) => {
@@ -34,7 +34,7 @@ export const useStage = (player, resetPlayer) => {
     };
 
     setStage((prev) => updateStage(prev));
-  }, [player.collided, player.pos.x, player.pos.y, player.tetromino]);
+  }, [player]);
 
   return [stage, setStage];
 };

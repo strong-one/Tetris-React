@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { randomTetromino } from "../tetrominos";
+import { TETROMINOS, randomTetromino } from "../tetrominos";
 import { STAGE_WIDTH } from "../gameHelpers";
 
 export const usePlayer = () => {
@@ -10,7 +10,7 @@ export const usePlayer = () => {
     // property - position for player
     pos: { x: 0, y: 0 },
     // one shape i createed to always keep in state
-    tetromino: randomTetromino().shape,
+    tetromino: TETROMINOS[0].shape,
     collided: false,
   });
 
@@ -36,9 +36,4 @@ export const usePlayer = () => {
   }, []);
 
   return [player, updatePlayerPos, resetPlayer];
-
-  // Longhand version for above code block
-  //   const playerState = useState();
-  //   const player = playerState[0]
-  //   const setPlayer = playerState[1]
 };
