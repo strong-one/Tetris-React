@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 
+// will need so there is a clean stage on new game
+import { createStage } from "../gameHelpers";
+
 // components
 import Stage from "./Stage"; // stage with cells where blocks fall
 import Display from "./Display"; // data from game display
@@ -29,8 +32,24 @@ const Tetris = () => {
   const [gameOver, setGameOver] = useState(false);
 
   console.log("re-render");
+
+  const movePlayer = (dir) => {};
+
+  const startGame = () => {};
+
+  const drop = () => {};
+
+  const dropPlayer = () => {};
+
+  const move = ({ keyCode }) => {};
+
   return (
-    <StyledTetrisWrapper>
+    <StyledTetrisWrapper
+      //this is the width of the vp so keypresses and events can register without a specific smaller target
+      role="button"
+      tabIndex="0"
+      onKeyDown={(event) => move(event)}
+    >
       <StyledTetris>
         <Stage stage={stage} />
         <aside>
