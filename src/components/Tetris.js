@@ -3,11 +3,6 @@ import React, { useState } from "react";
 // will need so there is a clean stage on new game
 import { createStage, checkCollision } from "../gameHelpers"; //prop
 
-// components
-import Stage from "./Stage"; // stage with cells where blocks fall
-import Display from "./Display"; // data from game display
-import StartButton from "./StartButton"; // start button to initiate game
-
 // styled components
 import { StyledTetrisWrapper, StyledTetris } from "./styles/StyledTetris";
 
@@ -15,6 +10,11 @@ import { StyledTetrisWrapper, StyledTetris } from "./styles/StyledTetris";
 
 import { usePlayer } from "../hooks/usePlayer";
 import { useStage } from "../hooks/useStage";
+
+// components
+import Stage from "./Stage"; // stage with cells where blocks fall
+import Display from "./Display"; // data from game display
+import StartButton from "./StartButton"; // start button to initiate game
 
 const Tetris = () => {
   // droptime - speed based on level speed
@@ -39,11 +39,24 @@ const Tetris = () => {
     // reset everyting
     setStage(createStage());
     resetPlayer();
+    setGameOver(false);
   };
 
   const drop = () => {
-    // as dropping y value increase by 1 and y tetromino go down
-    updatePlayerPos({ x: 0, y: 1, collided: false });
+    // moving one step down at a time on the y axis
+    if (!checkCollision(player, stage, { x: 0, y: 1 })) {
+      // as dropping y value increase by 1 and y tetromino go down
+      updatePlayerPos({ x: 0, y: 1, collided: false });
+    } else {
+      // Game Over
+      if (player.pos.y < 1) {
+        console.log(" GAME OVER!!!");
+        setGameOver(true);
+        setDropTime(null);
+      }
+      // need to set collided property to true when it collides
+      updatePlayerPos({ x: 0, y: 0, collided: true });
+    }
   };
 
   const dropPlayer = () => {
